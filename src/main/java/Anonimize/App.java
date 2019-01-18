@@ -22,6 +22,8 @@ public class App {
 
     Path path = Paths.get(dataPath);
 
+    System.out.println("Absolute path to data folder: " + path.toAbsolutePath().toString());
+
     try {
       Files.walk(path).filter(pa -> pa.toFile().isFile() && pa.toFile().getName().endsWith(".tif"))
           .map(Path::toFile)
@@ -34,8 +36,12 @@ public class App {
   private static void convert(File image, int topCutPixel) {
     try {
       BufferedImage bfImage = ImageIO.read(image);
-      ImageIO.write(cropImage(bfImage, bfImage.getMinX(), topCutPixel, bfImage.getWidth(),
-          bfImage.getHeight() - topCutPixel), "tif", image);
+      if(bfImage != null) {
+        ImageIO.write(cropImage(bfImage, bfImage.getMinX(), topCutPixel, bfImage.getWidth(),
+            bfImage.getHeight() - topCutPixel), "tif", image);
+      }else {
+        System.out.println("Image is null: " + image.getPath());
+      }
     } catch (IOException e) {
       e.printStackTrace();
     }
