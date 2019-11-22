@@ -1,4 +1,4 @@
-package Anonimize;
+package anonimize;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -70,10 +70,11 @@ public class App {
       File image, int topCutPixel, int counterId, boolean isToModelFormat, String imageExtension) {
     try {
       final BufferedImage bfInputImage = ImageIO.read(image);
-      final File outputFile = new File("data/output/" + counterId + image.getName());
 
       if (bfInputImage != null) {
         int x, y, w, h;
+        final File outputFile = new File("data/output/" + counterId + image.getName());
+
         if (isToModelFormat) {
           x = 200;
           y = 330 + topCutPixel;
